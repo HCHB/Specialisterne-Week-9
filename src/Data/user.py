@@ -1,3 +1,5 @@
+from passlib.handlers.sha2_crypt import sha256_crypt
+
 from src.Data.dataconnection import DataConnection
 
 
@@ -5,16 +7,20 @@ class User:
     _name: str
     _password: str
 
-    def __init__(self, name: str, password: str):
+    def __init__(self, name: str, password: str, encrypt_password=False):
         self._name = name
-        self._password = password
+        if encrypt_password:
+            self._password = sha256_crypt.hash(password)
+        else:
+            self._password = password
 
     def add(self):
-        command =  'INSERT INTO user (name, password) VALUES(%(name)s, %(password)s);'
+        command = 'INSERT INTO user (name, password) VALUES(%(name)s, %(password)s);'
 
         values = self._to_dict()
 
         connection = DataConnection()
+        connection.execute_command(command, values)
 
         return True
 
@@ -48,7 +54,6 @@ class User:
         }
 
         return values
-
 
     @property
     def password(self):

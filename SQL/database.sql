@@ -91,5 +91,4 @@ GRANT EXECUTE ON PROCEDURE hebo_week_9.add_cereal TO 'hebo_user'@'localhost';
 
 -- Populating tables
 -- -----------------------------------------------------
--- INSERT INTO Category (name, description) VALUES ('Miscellaneous', 'For everything not in other categories');
-INSERT INTO user (name, password) VALUES('hebo_user', 'test123');
+-- INSERT INTO user (name, password) VALUES('hebo_user', 'test123');

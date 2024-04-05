@@ -1,7 +1,10 @@
 import csv
-import os
+
+from passlib.handlers.sha2_crypt import sha256_crypt
 
 from src.Data.dataconnection import DataConnection
+from src.Data.object_factory import ObjectFactory
+from src.project_enums import ObjectTypes
 
 
 class DataLoader:
@@ -34,3 +37,6 @@ class DataLoader:
 if __name__ == '__main__':
     loader = DataLoader()
     loader.load('./Data/Cereal.csv')
+
+    user = ObjectFactory().build(ObjectTypes.USER, **{'name': 'hebo_user', 'password': 'test123', 'encrypt_password': True})
+    user.add()

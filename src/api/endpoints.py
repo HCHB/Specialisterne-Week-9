@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_httpauth import HTTPBasicAuth
+from passlib.hash import sha256_crypt
 
 from src.project_enums import SearchTypes, ObjectTypes
 
@@ -106,10 +107,11 @@ def cereal_delete():
 def logo_get():
     raise NotImplementedError
 
+
 @auth.verify_password
 def verify_password(username, password):
     print(f'inbuilt - {username}: {password}')
-    fields = query_parser.parse({'name': username, 'password': password})
+    fields = query_parser.parse({'name': username})
 
     users = search_manager.search(SearchTypes.USER, fields=fields)
 
@@ -117,8 +119,9 @@ def verify_password(username, password):
         return False
 
     user = users[0]
-    print(f'user - {user.name}: {user.password}')
-    if username == user.name and password == user.password:
+
+    verified = sha256_crypt.verify(password, user.password)
+    if username == user.name and verified:
         return user
 
     return False
@@ -126,6 +129,7 @@ def verify_password(username, password):
 
 def run():
     app.run(debug=True, port=80)
+    print()
     # app.run(debug=True, port=80, ssl_context='adhoc')
 
 

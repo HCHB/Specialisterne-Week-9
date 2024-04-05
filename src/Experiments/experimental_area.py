@@ -1,4 +1,3 @@
-import functools
 from pprint import pprint
 
 import requests
@@ -103,12 +102,12 @@ def test_send_delete():
 
 
 if __name__ == '__main__':
-    # test_send_get()
+    test_send_get()
 
     test_send_post()
 
-    # test_send_update()
-    #
-    # test_send_delete()
+    test_send_update()
+
+    test_send_delete()
 
     print('End')
