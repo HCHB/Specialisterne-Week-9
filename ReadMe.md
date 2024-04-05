@@ -5,11 +5,11 @@ F.x.
 
 The brackets are used for determining what kind of comparison is being performed, where no brackets means a simple equals
 
-[lt]  = less than
-[leq] = less than or equal
-[gt]  = greater than
-[geq] = greater than or equal
-[ne]  = not equal
+    [lt]  = less than
+    [leq] = less than or equal
+    [gt]  = greater than
+    [geq] = greater than or equal
+    [ne]  = not equal
 
 
 How to setup:
