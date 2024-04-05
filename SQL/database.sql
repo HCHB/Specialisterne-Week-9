@@ -34,7 +34,7 @@ CREATE TABLE Cereal(
     shelf int,
     weight float,
     cups float,
-    rating float,
+    rating double,
     PRIMARY KEY (ID)
 );
 
