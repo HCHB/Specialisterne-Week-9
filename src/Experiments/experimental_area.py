@@ -3,32 +3,13 @@ from pprint import pprint
 
 import requests
 
-
-def print_decorator(arg1):
-    def add_function(function):
-        @functools.wraps(function)
-        def decorator(*args, **kwargs):
-            print()
-            print(f'--------------------------')
-            print(f'{name}:')
-            return_values = function(*args, **kwargs)
-            print(f'--------------------------')
-            print()
-            return return_values
-        return decorator
-
-    if type(arg1) is str:
-        name = arg1
-        return add_function
-    else:
-        name = arg1.__name__
-        return add_function(arg1)
+from src.decorators import print_decorator
 
 
-@print_decorator('test 1')
+@print_decorator
 def test_send_get():
     # api_url = "http://localhost:80/cereal"
-    api_url = "http://localhost:80/cereal?fat[ne]=1&calories[lt]=100&calories[gt]=10"
+    api_url = "http://localhost:80/cereal?fat[ne]=1&calories[lt]=100&calories[gt]=10&shelf=1"
     # api_url = "http://localhost:80/cereal?name[leq]=bran"
 
     response = requests.get(api_url)
@@ -63,7 +44,8 @@ def test_send_post():
         'rating': 100
     }
 
-    response = requests.post(api_url, json=values)
+    response = requests.post(api_url, json=values, auth=('hebo_user', 'test123'))
+    # response = requests.post(api_url, json=values)
     response_data = response.json()
 
     status_code = response.status_code
@@ -95,7 +77,8 @@ def test_send_update():
         'cups': 100,
         'rating': 1000000
     }
-    response = requests.post(api_url, json=values)
+
+    response = requests.post(api_url, json=values, auth=('hebo_user', 'test123'))
     response_data = response.json()
 
     status_code = response.status_code
@@ -107,9 +90,10 @@ def test_send_update():
 @print_decorator
 def test_send_delete():
     api_url = "http://localhost:80/cereal"
-    todo = {"id": "78"}
 
-    response = requests.delete(api_url, json=todo)
+    values = {"id": "78"}
+
+    response = requests.delete(api_url, json=values, auth=('hebo_user', 'test123'))
     response_data = response.json()
 
     status_code = response.status_code
@@ -119,10 +103,10 @@ def test_send_delete():
 
 
 if __name__ == '__main__':
-    test_send_get()
+    # test_send_get()
 
-    # test_send_post()
-    #
+    test_send_post()
+
     # test_send_update()
     #
     # test_send_delete()

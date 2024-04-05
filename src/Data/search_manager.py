@@ -2,7 +2,7 @@ from src.project_enums import ObjectTypes, SearchTypes
 
 from src.Data.dataconnection import DataConnection
 from src.Data.object_factory import ObjectFactory
-from src.sql_parser import SQLParser
+from src.Data.sql_parser import SQLParser
 
 
 class SearchManager:
@@ -15,6 +15,10 @@ class SearchManager:
                 'table': 'Cereal',
                 'object_type': ObjectTypes.CEREAL
             },
+            SearchTypes.USER: {
+                'table': 'user',
+                'object_type': ObjectTypes.USER
+            },
         }
 
     def search(self, procedure, output='*', fields=()):
@@ -23,9 +27,6 @@ class SearchManager:
         command, values = self.sql_parser.generate_select_query(table_name=table,
                                                                 output_fields=output,
                                                                 data_fields=fields)
-
-        print(f'Command: {command}')  # TODO
-        print(f'Values: {values}')
 
         results = self._data_connection.execute_command(command, values)
 

@@ -1,6 +1,7 @@
 from src.project_enums import ObjectTypes
 
 from src.Data.cereal import Cereal
+from src.Data.user import User
 
 
 class CerealBuilder:
@@ -10,10 +11,18 @@ class CerealBuilder:
         return cereal
 
 
+class UserBuilder:
+    @staticmethod
+    def build(**kwargs):
+        cereal = User(**kwargs)
+        return cereal
+
+
 class ObjectFactory:
     _builders = {
-                 ObjectTypes.CEREAL: CerealBuilder(),
-                 }
+        ObjectTypes.CEREAL: CerealBuilder(),
+        ObjectTypes.USER: UserBuilder()
+    }
 
     def build(self, object_type, **kwargs):
         builder = self._decider(object_type)

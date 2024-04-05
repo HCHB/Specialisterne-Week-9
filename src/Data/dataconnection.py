@@ -1,6 +1,6 @@
 import mysql.connector
 
-from copy_paste.decorators import singleton
+from src.decorators import singleton
 
 
 @singleton

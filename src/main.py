@@ -1,4 +1,4 @@
-from src.endpoints import run
+from src.api.endpoints import run
 
 
 if __name__ == '__main__':

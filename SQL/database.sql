@@ -37,6 +37,12 @@ CREATE TABLE Cereal(
     rating float,
     PRIMARY KEY (ID)
 );
+
+CREATE TABLE user(
+    name varchar(64) NOT NULL,
+    password varchar(255) NOT NULL,
+    PRIMARY KEY (name)
+);
 -- -----------------------------------------------------
 
 
@@ -77,6 +83,7 @@ DELIMITER ;
 -- -----------------------------------------------------
 CREATE USER 'hebo_user'@'localhost' IDENTIFIED BY 'test123';
 GRANT SELECT, INSERT, UPDATE, DELETE ON hebo_week_9.Cereal TO 'hebo_user'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON hebo_week_9.user TO 'hebo_user'@'localhost';
 GRANT EXECUTE ON PROCEDURE hebo_week_9.add_cereal TO 'hebo_user'@'localhost';
 -- -----------------------------------------------------
 
@@ -85,3 +92,4 @@ GRANT EXECUTE ON PROCEDURE hebo_week_9.add_cereal TO 'hebo_user'@'localhost';
 -- Populating tables
 -- -----------------------------------------------------
 -- INSERT INTO Category (name, description) VALUES ('Miscellaneous', 'For everything not in other categories');
+INSERT INTO user (name, password) VALUES('hebo_user', 'test123');
